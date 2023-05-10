@@ -14,22 +14,33 @@ class MenuBar extends StatefulWidget {
 class _MenuBarState extends State<MenuBar> {
   Menu? selectedMenu;
 
+  bool colapsed = false;
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: context.percentWidth(.18),
+    return AnimatedContainer(
+      duration: const Duration(
+        milliseconds: 200,
+      ),
+      width: colapsed ? 90 : context.percentWidth(.18),
       height: double.infinity,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Align(
-            alignment: Alignment.centerRight,
+            alignment: colapsed ? Alignment.center : Alignment.centerRight,
             child: IconButton(
-              icon: const Icon(
-                Icons.keyboard_double_arrow_right,
+              icon: Icon(
+                colapsed
+                    ? Icons.keyboard_double_arrow_right
+                    : Icons.keyboard_double_arrow_left,
               ),
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  colapsed = !colapsed;
+                });
+              },
             ),
           ),
           const SizedBox(
