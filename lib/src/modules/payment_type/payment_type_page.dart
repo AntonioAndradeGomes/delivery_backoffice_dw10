@@ -14,7 +14,13 @@ class _PaymentTypePageState extends State<PaymentTypePage> {
       appBar: AppBar(
         title: const Text('PaymentTypePage'),
       ),
-      body: Container(),
+      body: Container(
+        child: Center(
+          child: Text(
+            'Payment Type',
+          ),
+        ),
+      ),
     );
   }
 }

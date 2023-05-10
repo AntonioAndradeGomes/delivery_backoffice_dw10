@@ -12,7 +12,9 @@ class CoreModule extends Module {
           export: true,
         ),
         Bind.lazySingleton(
-          (i) => CustomDio(),
+          (i) => CustomDio(
+            i(),
+          ),
           export: true,
         ),
       ];
