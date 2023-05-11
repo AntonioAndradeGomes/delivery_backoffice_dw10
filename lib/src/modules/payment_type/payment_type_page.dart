@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 import '../../core/ui/helpers/loader.dart';
 import '../../core/ui/helpers/messages.dart';
 import 'payment_type_controller.dart';
+import 'widgets/payment_type_form/payment_type_form_modal.dart';
 import 'widgets/payment_type_item.dart';
 import 'package:flutter/material.dart';
 import 'widgets/payment_type_header.dart';
@@ -25,6 +26,13 @@ class _PaymentTypePageState extends State<PaymentTypePage>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      final filterDisposer = reaction(
+        (_) => _controller.filterEnabled,
+        (_) {
+          _controller.loadPayments();
+        },
+      );
+
       final statusDisposer = reaction((_) => _controller.status, (status) {
         switch (status) {
           case PaymentTypeStateStatus.initial:
@@ -41,11 +49,54 @@ class _PaymentTypePageState extends State<PaymentTypePage>
               _controller.errorMessage ?? 'Erro ao buscar formas de pagamento',
             );
             break;
+          case PaymentTypeStateStatus.addOrUpdatePayment:
+            hideLoader();
+            shorAddOrUpdatePayment();
+            break;
+          case PaymentTypeStateStatus.saved:
+            hideLoader();
+            //fechar o modal de edição/atualização
+            Navigator.of(
+              context,
+              rootNavigator: true,
+            ).pop();
+            _controller.loadPayments();
+            break;
         }
       });
-      disposers.addAll([statusDisposer]);
+      disposers.addAll([statusDisposer, filterDisposer]);
       _controller.loadPayments();
     });
+  }
+
+  @override
+  void dispose() {
+    for (final dispose in disposers) {
+      dispose();
+    }
+    super.dispose();
+  }
+
+  void shorAddOrUpdatePayment() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Material(
+          color: Colors.black26,
+          child: Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            backgroundColor: Colors.white,
+            elevation: 10,
+            child: PaymentTypeFormModal(
+              model: _controller.paymentTypeSelected,
+              controller: _controller,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -59,7 +110,9 @@ class _PaymentTypePageState extends State<PaymentTypePage>
       ),
       child: Column(
         children: [
-          const PaymentTypeHeader(),
+          PaymentTypeHeader(
+            controller: _controller,
+          ),
           const SizedBox(
             height: 50,
           ),
@@ -78,6 +131,7 @@ class _PaymentTypePageState extends State<PaymentTypePage>
                     final paymentTypeModel = _controller.paymentTypes[index];
                     return PaymentTypeItem(
                       model: paymentTypeModel,
+                      controller: _controller,
                     );
                   },
                 );
