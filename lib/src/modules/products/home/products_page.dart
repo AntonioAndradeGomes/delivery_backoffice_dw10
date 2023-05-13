@@ -1,9 +1,8 @@
-import 'package:delivey_backoffice_dw10/src/core/ui/helpers/debouncer.dart';
+import '../../../core/ui/helpers/debouncer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-
 import '../../../core/ui/helpers/loader.dart';
 import '../../../core/ui/helpers/messages.dart';
 import '../../../core/ui/widgets/base_header.dart';
@@ -70,7 +69,10 @@ class _ProductsPageState extends State<ProductsPage> with Loader, Messages {
           BaseHeader(
             title: 'ADMINISTRAR PRODUTOS',
             buttonLabel: 'ADICIONAR PRODUTO',
-            buttonPressed: () {},
+            buttonPressed: () async {
+              await Modular.to.pushNamed('/products/detail');
+              _controller.loadProducts();
+            },
             searchChange: (value) {
               debouncer.call(() {
                 _controller.filterByName(value);
