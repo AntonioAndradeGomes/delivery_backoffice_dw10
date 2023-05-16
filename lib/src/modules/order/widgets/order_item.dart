@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core/ui/styles/text_styles.dart';
 import '../../../models/orders/order_model.dart';
+import '../order_controller.dart';
 
 class OrderItem extends StatelessWidget {
   final OrderModel orderModel;
@@ -11,7 +13,9 @@ class OrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final textStyles = context.textStyles;
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        context.read<OrderController>().showDetailModal(orderModel);
+      },
       child: Row(
         children: [
           Expanded(
