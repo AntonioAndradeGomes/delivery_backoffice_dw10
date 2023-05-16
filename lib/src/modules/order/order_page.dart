@@ -43,6 +43,14 @@ class _OrderPageState extends State<OrderPage> with Loader, Messages {
             hideLoader();
             showOrderDetail();
             break;
+          case OrderStateStatus.statusChanged:
+            hideLoader();
+            Navigator.of(
+              context,
+              rootNavigator: true,
+            ).pop();
+            _controller.findOrders();
+            break;
         }
       });
       _controller.findOrders();
@@ -78,7 +86,9 @@ class _OrderPageState extends State<OrderPage> with Loader, Messages {
           ),
           child: Column(
             children: [
-              const OrderHeader(),
+              OrderHeader(
+                controller: _controller,
+              ),
               const SizedBox(
                 height: 50,
               ),
