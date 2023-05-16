@@ -1,9 +1,7 @@
 import 'dart:developer';
-
 import 'package:mobx/mobx.dart';
-
 import '../../core/exceptions/unauthorized_exception.dart';
-import '../../services/login_service.dart';
+import '../../services/auth/login_service.dart';
 part 'login_controller.g.dart';
 
 enum LoginStateStatus {

@@ -2,6 +2,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../repositories/order/order_repository.dart';
 import '../../repositories/order/order_respository_impl.dart';
+import '../../services/order/get_order_by_id.dart';
+import '../../services/order/get_order_by_id_impl.dart';
 import 'order_controller.dart';
 import 'order_page.dart';
 
@@ -13,8 +15,16 @@ class OrderModule extends Module {
             i(),
           ),
         ),
+        Bind.lazySingleton<GetOrderById>(
+          (i) => GetOrderByIdImpl(
+            i(),
+            i(),
+            i(),
+          ),
+        ),
         Bind.lazySingleton(
           (i) => OrderController(
+            i(),
             i(),
           ),
         ),

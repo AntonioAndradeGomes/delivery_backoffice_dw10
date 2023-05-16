@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 import 'package:mobx/mobx.dart';
+import '../../dto/order/order_dto.dart';
 import '../../models/orders/order_model.dart';
 import '../../models/orders/order_status.dart';
 import '../../repositories/order/order_repository.dart';
+import '../../services/order/get_order_by_id.dart';
 part 'order_controller.g.dart';
 
 enum OrderStateStatus {
@@ -18,11 +20,13 @@ class OrderController = OrderControllerBase with _$OrderController;
 
 abstract class OrderControllerBase with Store {
   final OrderRepository _repository;
+  final GetOrderById _getOrderById;
 
   late final DateTime _today;
 
   OrderControllerBase(
     this._repository,
+    this._getOrderById,
   ) {
     final todayNow = DateTime.now();
     _today = DateTime(
@@ -43,6 +47,9 @@ abstract class OrderControllerBase with Store {
 
   @readonly
   String? _errorMessage;
+
+  @readonly
+  OrderDto? _orderDtoSelected;
 
   @action
   Future<void> findOrders() async {
@@ -66,7 +73,7 @@ abstract class OrderControllerBase with Store {
 
   Future<void> showDetailModal(OrderModel model) async {
     _status = OrderStateStatus.loading;
-    await Future.delayed(Duration.zero);
+    _orderDtoSelected = await _getOrderById(model);
     _status = OrderStateStatus.showDetailModal;
   }
 }

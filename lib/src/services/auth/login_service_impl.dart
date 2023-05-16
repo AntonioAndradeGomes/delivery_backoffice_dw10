@@ -1,6 +1,6 @@
-import '../core/global/constants.dart';
-import '../core/storage/storage.dart';
-import '../repositories/auth/auth_repository.dart';
+import '../../core/global/constants.dart';
+import '../../core/storage/storage.dart';
+import '../../repositories/auth/auth_repository.dart';
 import 'login_service.dart';
 
 class LoginServiceImpl implements LoginService {

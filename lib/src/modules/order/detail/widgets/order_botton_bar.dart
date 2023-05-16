@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/ui/styles/text_styles.dart';
 
 class OrderBottonBar extends StatelessWidget {

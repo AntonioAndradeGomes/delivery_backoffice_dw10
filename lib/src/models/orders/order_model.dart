@@ -49,7 +49,7 @@ class OrderModel {
       userId: map['user_id']?.toInt() ?? 0,
       address: map['address'] ?? '',
       cpf: map['cpf'] ?? '',
-      paymentTypeId: map['payment_type_id']?.toInt() ?? 0,
+      paymentTypeId: map['payment_method_id']?.toInt() ?? 0,
     );
   }
 

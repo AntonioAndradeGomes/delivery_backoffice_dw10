@@ -81,6 +81,24 @@ mixin _$OrderController on OrderControllerBase, Store {
     });
   }
 
+  late final _$_orderDtoSelectedAtom =
+      Atom(name: 'OrderControllerBase._orderDtoSelected', context: context);
+
+  OrderDto? get orderDtoSelected {
+    _$_orderDtoSelectedAtom.reportRead();
+    return super._orderDtoSelected;
+  }
+
+  @override
+  OrderDto? get _orderDtoSelected => orderDtoSelected;
+
+  @override
+  set _orderDtoSelected(OrderDto? value) {
+    _$_orderDtoSelectedAtom.reportWrite(value, super._orderDtoSelected, () {
+      super._orderDtoSelected = value;
+    });
+  }
+
   late final _$findOrdersAsyncAction =
       AsyncAction('OrderControllerBase.findOrders', context: context);
 
