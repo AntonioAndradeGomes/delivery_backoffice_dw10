@@ -17,8 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 //rodrigorahman@academiadoflutter.com.br
-//123123
-//json_rest_server run
+
 class _LoginPageState extends State<LoginPage> with Loader, Messages {
   final _controller = Modular.get<LoginController>();
   final _emailTextController = TextEditingController();
@@ -196,3 +195,4 @@ class _LoginPageState extends State<LoginPage> with Loader, Messages {
     );
   }
 }
+//123123
