@@ -3,7 +3,7 @@
 
 Projeto [Flutter](https://flutter.dev/) Web para administração de uma hamburgueria, feito na 10ª imerção Dart Week da Academia do Flutter.
 
-A Aplicação foi feita utilizando [Flutter Modular](https://modular.flutterando.com.br/docs/flutter_modular/start) e [Mobx](https://mobx.netlify.app/).
+A aplicação foi feita utilizando [Flutter Modular](https://modular.flutterando.com.br/docs/flutter_modular/start) e [Mobx](https://mobx.netlify.app/).
 
 ## Packages utilizados
 
